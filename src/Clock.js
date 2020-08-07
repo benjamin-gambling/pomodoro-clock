@@ -77,6 +77,7 @@ class Clock extends React.Component {
             this.determineTheme
           );
     }
+    document.title = this.clockify(mode);
   }
 
   clockify(mode) {
@@ -208,7 +209,7 @@ class Controls extends React.Component {
     return (
       <div className="controls">
         <button onClick={() => this.props.startStop()}>{button}</button>
-        <button id="refresh" onClick={() => this.props.startStop()}>
+        <button id="refresh" onClick={() => this.props.resetTimer()}>
           <i className="fa fa-refresh" />
         </button>
         <button id="nightmode" onClick={() => this.props.nightmode()}>
