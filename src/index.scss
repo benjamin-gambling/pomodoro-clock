@@ -1,0 +1,206 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@400;600;700&display=swap");
+@font-face {
+  font-family: "Digital";
+  src: url("//db.onlinewebfonts.com/t/055d8bd397b68d5d121796f56b904640.eot");
+  src: url("//db.onlinewebfonts.com/t/055d8bd397b68d5d121796f56b904640.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/055d8bd397b68d5d121796f56b904640.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/055d8bd397b68d5d121796f56b904640.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/055d8bd397b68d5d121796f56b904640.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/055d8bd397b68d5d121796f56b904640.svg#Digital")
+      format("svg");
+}
+
+$themes: (
+  work: (
+    background: #42b983,
+    main: white,
+    night: rgb(40, 44, 52),
+  ),
+  break: (
+    background: #4285f4,
+    main: white,
+    night: rgb(40, 44, 52),
+  ),
+  paused: (
+    background: #ff4444,
+    main: white,
+    night: rgb(40, 44, 52),
+  ),
+  darkwork: (
+    background: rgb(40, 44, 52),
+    main: #42b983,
+    night: #ffbb33,
+  ),
+  darkbreak: (
+    background: rgb(40, 44, 52),
+    main: #4285f4,
+    night: #ffbb33,
+  ),
+  darkpaused: (
+    background: rgb(40, 44, 52),
+    main: #ff4444,
+    night: #ffbb33,
+  ),
+);
+
+@mixin theme-aware($key, $color) {
+  @each $theme-name, $theme-color in $themes {
+    .theme-#{$theme-name} & {
+      #{$key}: map-get(map-get($themes, $theme-name), $color);
+    }
+  }
+}
+
+body,
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  @include theme-aware("background-color", "background");
+  @include theme-aware("color", "main");
+  transition: all 1.5s ease;
+  font-family: "Josefin Slab", serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+}
+
+#root {
+  max-height: 375px;
+}
+
+h1 {
+  margin: 5px 0px;
+}
+
+.infoP {
+  margin: 0px 0px 10px 0px;
+}
+
+.info {
+  font-weight: 600;
+  position: fixed;
+  width: 85vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: auto auto;
+  text-align: justify;
+  padding: 20px;
+  z-index: 99;
+  @include theme-aware("background-color", "main");
+  @include theme-aware("color", "background");
+  transition: all 1.5s ease;
+  border-radius: 5px;
+  font-size: 16px;
+
+  button {
+    @include theme-aware("color", "background");
+    font-size: 35px;
+    float: right;
+    padding: 0px 5px 5px 5px;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+li {
+  padding: 2px;
+}
+
+h3 {
+  text-transform: uppercase;
+}
+
+button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  @include theme-aware("color", "main");
+  transition: all 1.5s ease;
+  font-size: 1em;
+}
+
+.display {
+  border: 5px solid;
+  @include theme-aware("border-color", "main");
+  transition: border-color 1.5s ease;
+  border-radius: 5px;
+
+  h3 {
+    font-size: 1.5em;
+    margin: 0px;
+    padding-top: 10px;
+  }
+
+  div {
+    font-family: "Digital";
+    font-size: 6em;
+    padding: 0px 10px 10px 10px;
+  }
+}
+
+.settings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 10px;
+  padding-bottom: 0px;
+
+  div {
+    padding: 5px;
+
+    h3 {
+      margin: 0px;
+    }
+
+    .time-adjust {
+      display: flex;
+
+      h3 {
+        width: 1.5em;
+        font-size: 1.5em;
+        font-weight: 600;
+        padding: 1px;
+        @include theme-aware("background-color", "main");
+        @include theme-aware("color", "background");
+        transition: all 2.5s ease;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+.controls {
+  button {
+    font-size: 2.5em;
+  }
+}
+
+#refresh {
+  font-size: 2em;
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 20px;
+}
+
+#nightmode {
+  @include theme-aware("color", "night");
+  opacity: 0.75;
+  font-size: 2.25em;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px;
+}
